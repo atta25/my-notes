@@ -1,0 +1,149 @@
+{
+  "students": [
+    {
+      "firstName": "juan",
+      "lastName": "perez",
+      "file": "150.001-1",
+      "userGitHub": "juanp",
+      "assignments": [
+        {
+          "description": "1er parcial",
+          "notes": [
+            "6",
+            "8"
+          ]
+        },
+        {
+          "description": "2do parcial",
+          "notes": [
+            "6",
+            "6"
+          ]
+        },
+        {
+          "description": "TP ",
+          "notes": [
+            "5",
+            "6"
+          ]
+        }
+      ]
+    },
+    {
+      "firstName": "santiago",
+      "lastName": "arias",
+      "file": "150.002-2",
+      "userGitHub": "santiagoa",
+      "assignments": [
+        {
+          "description": "1er parcial",
+          "notes": [
+            "9",
+            "8"
+          ]
+        },
+        {
+          "description": "2do parcial",
+          "notes": [
+            "7",
+            "7"
+          ]
+        },
+        {
+          "description": "TP ",
+          "notes": [
+            "B",
+            "B-"
+          ]
+        }
+      ]
+    },
+    {
+      "firstName": "armando",
+      "lastName": "paredes",
+      "file": "150.003-3",
+      "userGitHub": "armandop",
+      "assignments": [
+        {
+          "description": "1er parcial",
+          "notes": [
+            "7",
+            "7"
+          ]
+        },
+        {
+          "description": "2do parcial",
+          "notes": [
+            "9",
+            "6"
+          ]
+        },
+        {
+          "description": "TP ",
+          "notes": [
+            "R+",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "firstName": "cinthia",
+      "lastName": "venegas",
+      "file": "150.004-4",
+      "userGitHub": "cinthiav",
+      "assignments": [
+        {
+          "description": "1er parcial",
+          "notes": [
+            "9",
+            "8"
+          ]
+        },
+        {
+          "description": "2do parcial",
+          "notes": [
+            "4",
+            "6"
+          ]
+        },
+        {
+          "description": "TP ",
+          "notes": [
+            "B",
+            "MB"
+          ]
+        }
+      ]
+    },
+    {
+      "firstName": "alejandra",
+      "lastName": "gomez",
+      "file": "150.005-5",
+      "userGitHub": "alejandrag",
+      "assignments": [
+        {
+          "description": "1er parcial",
+          "notes": [
+            "9",
+            "9"
+          ]
+        },
+        {
+          "description": "2do parcial",
+          "notes": [
+            "8",
+            "6"
+          ]
+        },
+        {
+          "description": "TP ",
+          "notes": [
+            "R",
+            "R+"
+          ]
+        }
+      ]
+    }
+  ]
+}
