@@ -1,7 +1,10 @@
 package model;
 
+import org.uqbar.commons.model.annotations.Observable;
+
 import java.util.List;
 
+@Observable
 public class Assignment {
     private String description;
     private List<String> notes;

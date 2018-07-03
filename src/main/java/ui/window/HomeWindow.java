@@ -39,6 +39,7 @@ public class HomeWindow extends SimpleWindow<StudentViewModel> {
     }
 
     private void seeNotes() {
+        new AssignmentWindow(this).open();
     }
 
     private void updateData() {
