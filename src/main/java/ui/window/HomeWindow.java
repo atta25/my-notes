@@ -1,5 +1,6 @@
 package ui.window;
 
+import model.Student;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -7,11 +8,14 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import ui.vm.StudentViewModel;
+import ui.vm.AssignmentViewModel;
+import ui.vm.HomeViewModel;
+import ui.vm.UpdateStudentViewModel;
+import java.util.Optional;
 
-public class HomeWindow extends SimpleWindow<StudentViewModel> {
-    public HomeWindow(WindowOwner parent) {
-        super(parent, new StudentViewModel());
+public class HomeWindow extends SimpleWindow<HomeViewModel> {
+    public HomeWindow(WindowOwner parent, HomeViewModel model) {
+        super(parent, model);
     }
 
     @Override
@@ -21,7 +25,9 @@ public class HomeWindow extends SimpleWindow<StudentViewModel> {
     protected void createFormPanel(Panel panel) {
         this.setTitle("Mis Notas");
         new Label(panel).setText("Legajo: ");
-        new TextBox(panel).setWidth(400);
+        new TextBox(panel)
+                .setWidth(400)
+                .bindValueToProperty("file");
         Panel columns = new Panel(panel);
         columns.setLayout(new ColumnLayout(2));
         new Button(columns)
@@ -39,11 +45,17 @@ public class HomeWindow extends SimpleWindow<StudentViewModel> {
     }
 
     private void seeNotes() {
-        new AssignmentWindow(this).open();
+        Optional<Student> student = this.getModelObject().getStudent();
+        if (student.isPresent()) {
+            new AssignmentWindow(this, new AssignmentViewModel(student.get().getAssignments())).open();
+        }
     }
 
     private void updateData() {
-        new UpdateStudentWindow(this).open();
+        Optional<Student> student = this.getModelObject().getStudent();
+        if (student.isPresent()) {
+            new UpdateStudentWindow(this, new UpdateStudentViewModel(student.get())).open();
+        }
     }
 
 }

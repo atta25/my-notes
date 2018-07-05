@@ -7,12 +7,11 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import ui.vm.StudentViewModel;
+import ui.vm.UpdateStudentViewModel;
 
-public class UpdateStudentWindow extends SimpleWindow<StudentViewModel> {
-
-    public UpdateStudentWindow(WindowOwner parent) {
-        super(parent, new StudentViewModel());
+public class UpdateStudentWindow extends SimpleWindow<UpdateStudentViewModel> {
+    public UpdateStudentWindow(WindowOwner parent, UpdateStudentViewModel model) {
+        super(parent, model);
     }
 
     @Override
@@ -20,7 +19,7 @@ public class UpdateStudentWindow extends SimpleWindow<StudentViewModel> {
 
     @Override
     protected void createFormPanel(Panel panel) {
-        this.setTitle("Modificación de datos");
+        this.setTitle("Actualización de datos de datos");
         new Label(panel).setText("Datos del estudiante: ");
         new Label(panel).setText("");
         Panel columns = new Panel(panel);
@@ -31,11 +30,17 @@ public class UpdateStudentWindow extends SimpleWindow<StudentViewModel> {
         file.bindEnabledToProperty("enabled");
         file.bindValueToProperty("file");
         new Label(columns).setText("Nombre: ");
-        new TextBox(columns).setWidth(200);
+        new TextBox(columns)
+                .setWidth(200)
+                .bindValueToProperty("firstName");
         new Label(columns).setText("Apellido: ");
-        new TextBox(columns).setWidth(200);
+        new TextBox(columns)
+                .setWidth(200)
+                .bindValueToProperty("lastName");
         new Label(columns).setText("Usuario de GitHub: ");
-        new TextBox(columns).setWidth(200);
+        new TextBox(columns)
+                .setWidth(200)
+                .bindValueToProperty("userGitHub");
         new Label(panel).setText("");
         new Label(panel).setText("");
         new Button(panel)

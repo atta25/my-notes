@@ -11,5 +11,7 @@ public class RepositoryCourse {
         this.course = course;
     }
 
+    public Course getCourse() { return this.course; }
+
 }
 

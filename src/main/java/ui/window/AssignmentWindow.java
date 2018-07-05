@@ -1,6 +1,7 @@
 package ui.window;
 
 import model.Assignment;
+import model.CurrentNote;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.tables.Column;
@@ -11,8 +12,8 @@ import ui.vm.AssignmentViewModel;
 
 public class AssignmentWindow extends SimpleWindow<AssignmentViewModel> {
 
-    public AssignmentWindow(WindowOwner parent) {
-        super(parent, new AssignmentViewModel());
+    public AssignmentWindow(WindowOwner parent, AssignmentViewModel model) {
+        super(parent, model);
     }
 
     @Override
@@ -21,13 +22,20 @@ public class AssignmentWindow extends SimpleWindow<AssignmentViewModel> {
     @Override
     protected void createFormPanel(Panel panel) {
         this.setTitle("Notas");
-        Table tableNotes = new Table<>(panel, Assignment.class);
+        Table tableNotes = new Table<>(panel, CurrentNote.class);
+        tableNotes.bindItemsToProperty("currentNotes");
 
-        Column<Assignment> columnDescription = new Column<Assignment>(tableNotes);
+        Column<CurrentNote> columnDescription = new Column<CurrentNote>(tableNotes);
         columnDescription.setTitle("Descripción");
+        columnDescription.bindContentsToProperty("description");
 
-        Column<Assignment> columnNotes = new Column<Assignment>(tableNotes);
-        columnNotes.setTitle("Nota");
+        Column<CurrentNote> columnNotes = new Column<CurrentNote>(tableNotes);
+        columnNotes.setTitle("Nota actual");
+        columnNotes.bindContentsToProperty("lastNote");
+
+        Column<CurrentNote> columnStatus = new Column<CurrentNote>(tableNotes);
+        columnStatus.setTitle("Estado");
+        columnStatus.bindContentsToProperty("status");
 
         new Button(panel)
                 .setCaption("Cerrar")

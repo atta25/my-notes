@@ -1,15 +1,14 @@
 package model;
 
-import java.util.List;
+import java.util.Set;
 
 public class Course {
-    private List<Student> students;
-
-    public List<Student> getStudents() {
+    private Set<Student> students;
+    public Set<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 
