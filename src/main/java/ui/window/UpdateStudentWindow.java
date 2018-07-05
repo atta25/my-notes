@@ -19,7 +19,7 @@ public class UpdateStudentWindow extends SimpleWindow<UpdateStudentViewModel> {
 
     @Override
     protected void createFormPanel(Panel panel) {
-        this.setTitle("Actualización de datos de datos");
+        this.setTitle("Actualización de datos");
         new Label(panel).setText("Datos del estudiante: ");
         new Label(panel).setText("");
         Panel columns = new Panel(panel);
@@ -54,6 +54,7 @@ public class UpdateStudentWindow extends SimpleWindow<UpdateStudentViewModel> {
     }
 
     private void uploadData() {
+
     }
 
 }

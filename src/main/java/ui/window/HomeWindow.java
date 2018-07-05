@@ -1,6 +1,5 @@
 package ui.window;
 
-import model.Student;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -11,9 +10,10 @@ import org.uqbar.arena.windows.WindowOwner;
 import ui.vm.AssignmentViewModel;
 import ui.vm.HomeViewModel;
 import ui.vm.UpdateStudentViewModel;
-import java.util.Optional;
 
 public class HomeWindow extends SimpleWindow<HomeViewModel> {
+    private static String STUDENT_NOT_FOUND = "Ingrese un número de legajo válido.";
+
     public HomeWindow(WindowOwner parent, HomeViewModel model) {
         super(parent, model);
     }
@@ -45,17 +45,26 @@ public class HomeWindow extends SimpleWindow<HomeViewModel> {
     }
 
     private void seeNotes() {
-        Optional<Student> student = this.getModelObject().getStudent();
-        if (student.isPresent()) {
-            new AssignmentWindow(this, new AssignmentViewModel(student.get().getAssignments())).open();
+        if (this.getModelObject().getStudent().isPresent()) {
+            new AssignmentWindow(this, new AssignmentViewModel(this.getModelObject().getStudent().get().getAssignments())).open();
+        }
+        else {
+            this.showError(STUDENT_NOT_FOUND);
         }
     }
 
     private void updateData() {
-        Optional<Student> student = this.getModelObject().getStudent();
-        if (student.isPresent()) {
-            new UpdateStudentWindow(this, new UpdateStudentViewModel(student.get())).open();
+        if (this.getModelObject().getStudent().isPresent()) {
+            new UpdateStudentWindow(this, new UpdateStudentViewModel(this.getModelObject().getStudent().get())).open();
         }
+        else {
+            this.showError(STUDENT_NOT_FOUND);
+        }
+    }
+
+    @Override
+    public void showError(String message) {
+        super.showError(message);
     }
 
 }

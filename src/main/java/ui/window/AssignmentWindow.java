@@ -1,6 +1,5 @@
 package ui.window;
 
-import model.Assignment;
 import model.CurrentNote;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Panel;
