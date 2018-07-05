@@ -1,6 +1,7 @@
 package repo;
 
 import model.Course;
+import model.Student;
 
 public class RepositoryCourse {
     private Course course;
@@ -12,6 +13,14 @@ public class RepositoryCourse {
     }
 
     public Course getCourse() { return this.course; }
+
+    public void removeStudent(String file) {
+        this.course.getStudents().removeIf(student -> file.equals(student.getFile()));
+    }
+
+    public void addStudent(Student student) {
+        this.course.getStudents().add(student);
+    }
 
 }
 

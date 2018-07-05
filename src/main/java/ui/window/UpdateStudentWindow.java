@@ -45,7 +45,7 @@ public class UpdateStudentWindow extends SimpleWindow<UpdateStudentViewModel> {
         new Label(panel).setText("");
         new Button(panel)
                 .setCaption("Modificar")
-                .onClick(this::uploadData)
+                .onClick(this::updateData)
                 .setWidth(150);
         new Button(panel)
                 .setCaption("Cerrar")
@@ -53,8 +53,9 @@ public class UpdateStudentWindow extends SimpleWindow<UpdateStudentViewModel> {
                 .setWidth(150);
     }
 
-    private void uploadData() {
-
+    private void updateData() {
+        this.getModelObject().updateData();
+        this.close();
     }
 
 }

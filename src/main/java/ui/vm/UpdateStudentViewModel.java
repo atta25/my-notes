@@ -2,6 +2,7 @@ package ui.vm;
 
 import model.Student;
 import org.uqbar.commons.model.annotations.Observable;
+import repo.RepositoryCourse;
 
 @Observable
 public class UpdateStudentViewModel {
@@ -50,6 +51,11 @@ public class UpdateStudentViewModel {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void updateData() {
+        RepositoryCourse.getInstance().removeStudent(this.student.getFile());
+        RepositoryCourse.getInstance().addStudent(this.student);
     }
 
 }
