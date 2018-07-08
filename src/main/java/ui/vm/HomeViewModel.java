@@ -25,7 +25,7 @@ public class HomeViewModel {
     }
 
     public Optional<Student> getStudent() {
-        return course.getStudents().stream().filter(student -> file.equals(student.getFile())).findAny();
+        return RepositoryCourse.getInstance().getStudent(this.file);
     }
 
 }
