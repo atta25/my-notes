@@ -1,5 +1,4 @@
-{
-  "students": [
+[
     {
       "firstName": "juan",
       "lastName": "perez",
@@ -145,5 +144,4 @@
         }
       ]
     }
-  ]
-}
+]
