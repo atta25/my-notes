@@ -2,8 +2,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 
 import model.Course;
 import model.CurrentNote;
@@ -24,10 +27,12 @@ public class ReadJsonTest {
 
 	private ObjectMapper objectMapper;
 	private File fileJson;
+	private Course courseJson;
 	private List<Student> studentsFromJson = new ArrayList<Student>();
 	private UpdateStudentViewModel updateStudentViewModel;
 	private Student studentToUpdate;
 	private Course course;
+	private Set<Student> students;
 	
 	
 	@Before
@@ -38,34 +43,33 @@ public class ReadJsonTest {
        
 		objectMapper = new ObjectMapper();
 		fileJson = new File("C:\\notes.json");
-		studentsFromJson = objectMapper.readValue(fileJson,new TypeReference<List<Student>>(){});
-		studentToUpdate = studentsFromJson.get(0);
-		RepositoryCourse.getInstance().addStudent(studentToUpdate);
-		updateStudentViewModel = new UpdateStudentViewModel(studentToUpdate);
+		courseJson = objectMapper.readValue(fileJson,Course.class);
+		students = courseJson.getStudents();
+
 	}
 	
 	 @Test
 	 public void sizeOfStudentsInTheCourse() throws JsonParseException, JsonMappingException, IOException {
-		 
-		 Assert.assertEquals(studentsFromJson.size(), 5);
+		
+		 Assert.assertEquals(students.size(), 5);
 	 }
 	 
 	 @Test
 	 public void readFromJsonAndTakeDetailsToSpecificStudent() throws JsonParseException, JsonMappingException, IOException{
-	    
-	    Student anStudent = studentsFromJson.get(0);
-	    Assert.assertEquals(anStudent.getFirstName(),"juan");
-	    Assert.assertEquals(anStudent.getLastName(), "perez");
-	    Assert.assertEquals(anStudent.getUserGitHub(), "juanp");
-	    Assert.assertEquals(anStudent.getFile(), "150.001-1");
+	    List<Student> listStudents = Lists.newArrayList(students);
+	    Student anStudent = listStudents.get(4);
+	    Assert.assertEquals(anStudent.getFirstName(),"alejandra");
+	    Assert.assertEquals(anStudent.getLastName(), "gomez");
+	    Assert.assertEquals(anStudent.getUserGitHub(), "alejandrag");
+	    Assert.assertEquals(anStudent.getFile(), "150.005-5");
 	    	
 	 }
 	 
 	 @Test
 	 public void whoStudentHasTheBestLastNoteInHisFirstExam() throws JsonParseException, JsonMappingException, IOException {
-		 
-		 Student anStudent = studentsFromJson.get(0);
-		 Student anotherStudent = studentsFromJson.get(2);
+		 List<Student> listStudents = Lists.newArrayList(students);
+		 Student anStudent = listStudents.get(0);
+		 Student anotherStudent = listStudents.get(2);
 		 
 		 String lastNoteAnStudent = anStudent.getAssignments().get(0).getNotes().get(1);
 		 int anStudentNumericNote = Integer.parseInt(lastNoteAnStudent);
@@ -73,27 +77,12 @@ public class ReadJsonTest {
 		 String lastNoteAnotherStudent = anotherStudent.getAssignments().get(0).getNotes().get(1);
 		 int anotherStudentNumericNote = Integer.parseInt(lastNoteAnotherStudent);
 		 
-		 Assert.assertEquals(anStudentNumericNote, 8);
-		 Assert.assertEquals(anotherStudentNumericNote, 7);
+		 Assert.assertEquals(anStudentNumericNote, 9);
+		 Assert.assertEquals(anotherStudentNumericNote, 8);
 		 Assert.assertTrue(anStudentNumericNote > anotherStudentNumericNote);
      }
 	 
-	 @Test
-	 public void updateStudentFromJson() {
-		 studentToUpdate.setFile("143-432.3");
-		 studentToUpdate.setFirstName("jorge");
-		 studentToUpdate.setLastName("martinez");
-		 studentToUpdate.setUserGitHub("lta");
-		 
-		 updateStudentViewModel.updateData();
-		 
-		 Optional<Student> studentModifiend = RepositoryCourse.getInstance().getStudent(studentToUpdate.getFile());
-		 
-		 Assert.assertEquals(studentModifiend.get().getFirstName(), studentToUpdate.getFirstName());
-		 Assert.assertEquals(studentModifiend.get().getLastName(), studentToUpdate.getLastName());
-		 Assert.assertEquals(studentModifiend.get().getUserGitHub(), studentToUpdate.getUserGitHub());
-		 Assert.assertEquals(studentModifiend.get().getFile(), studentToUpdate.getFile());
-		 
-	}
+	 
+	 
 	 
 }
