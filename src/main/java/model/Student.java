@@ -1,13 +1,30 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Student {
-    private String firstName;
-    private String lastName;
+    @JsonProperty("code")
     private String file;
+    @JsonProperty("first_name")
+    private String firstName;
+    @JsonProperty("last_name")
+    private String lastName;
+    @JsonProperty("github_user")
     private String userGitHub;
+    @JsonProperty("assignments")
     private List<Assignment> assignments;
+
+    public Student() {}
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -23,14 +40,6 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
     }
 
     public String getUserGitHub() {
