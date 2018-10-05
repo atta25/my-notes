@@ -2,7 +2,6 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.uqbar.commons.model.annotations.Observable;
-
 import java.util.List;
 
 @Observable

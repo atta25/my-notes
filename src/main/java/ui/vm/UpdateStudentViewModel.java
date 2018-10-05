@@ -2,15 +2,18 @@ package ui.vm;
 
 import model.Student;
 import org.uqbar.commons.model.annotations.Observable;
-import repo.RepositoryCourse;
+import service.StudentService;
+import utils.JsonUtils;
 
 @Observable
 public class UpdateStudentViewModel {
     private Student student;
     private Boolean enabled = false;
 
-    public UpdateStudentViewModel(Student student) {
-        this.student = student;
+    public UpdateStudentViewModel(String token) {
+        String body = new StudentService().getStudentData(token).getEntity(String.class);
+        this.student = new JsonUtils().getObject(body, Student.class);
+        this.student.setToken(token);
     }
 
     public String getFile() {
@@ -53,9 +56,9 @@ public class UpdateStudentViewModel {
         this.enabled = enabled;
     }
 
-    public void updateData() {
-        RepositoryCourse.getInstance().removeStudent(this.student.getFile());
-        RepositoryCourse.getInstance().addStudent(this.student);
+    public String updateData() {
+        String body = new JsonUtils().getJson(student);
+        return new StudentService().updateResponse(student.getToken(), body);
     }
 
 }

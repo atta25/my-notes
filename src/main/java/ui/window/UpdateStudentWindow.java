@@ -1,10 +1,12 @@
 package ui.window;
 
+import exception.ClientResponseException;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import ui.vm.UpdateStudentViewModel;
@@ -54,8 +56,13 @@ public class UpdateStudentWindow extends SimpleWindow<UpdateStudentViewModel> {
     }
 
     private void updateData() {
-        this.getModelObject().updateData();
-        this.close();
+        try {
+            String result = this.getModelObject().updateData();
+            this.showMessageBox(MessageBox.Type.Information, result);
+            this.close();
+        } catch (ClientResponseException e) {
+            this.showError(e.getMessage());
+        }
     }
 
 }

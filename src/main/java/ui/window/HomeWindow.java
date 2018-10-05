@@ -1,5 +1,6 @@
 package ui.window;
 
+import exception.ClientResponseException;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -12,7 +13,6 @@ import ui.vm.HomeViewModel;
 import ui.vm.UpdateStudentViewModel;
 
 public class HomeWindow extends SimpleWindow<HomeViewModel> {
-    private static String STUDENT_NOT_FOUND = "Ingrese un número de legajo válido.";
 
     public HomeWindow(WindowOwner parent, HomeViewModel model) {
         super(parent, model);
@@ -24,10 +24,10 @@ public class HomeWindow extends SimpleWindow<HomeViewModel> {
     @Override
     protected void createFormPanel(Panel panel) {
         this.setTitle("Mis Notas");
-        new Label(panel).setText("Legajo: ");
+        new Label(panel).setText("Token: ");
         new TextBox(panel)
                 .setWidth(400)
-                .bindValueToProperty("file");
+                .bindValueToProperty("token");
         Panel columns = new Panel(panel);
         columns.setLayout(new ColumnLayout(2));
         new Button(columns)
@@ -45,26 +45,19 @@ public class HomeWindow extends SimpleWindow<HomeViewModel> {
     }
 
     private void seeNotes() {
-        if (this.getModelObject().getStudent().isPresent()) {
-            new AssignmentWindow(this, new AssignmentViewModel(this.getModelObject().getStudent().get().getAssignments())).open();
-        }
-        else {
-            this.showError(STUDENT_NOT_FOUND);
+        try {
+            new AssignmentWindow(this, new AssignmentViewModel(this.getModelObject().getStudent().getToken())).open();
+        } catch (ClientResponseException e) {
+            this.showError(e.getMessage());
         }
     }
 
     private void updateData() {
-        if (this.getModelObject().getStudent().isPresent()) {
-            new UpdateStudentWindow(this, new UpdateStudentViewModel(this.getModelObject().getStudent().get())).open();
+        try {
+            new UpdateStudentWindow(this, new UpdateStudentViewModel(this.getModelObject().getStudent().getToken())).open();
+        } catch (ClientResponseException e) {
+            this.showError(e.getMessage());
         }
-        else {
-            this.showError(STUDENT_NOT_FOUND);
-        }
-    }
-
-    @Override
-    public void showError(String message) {
-        super.showError(message);
     }
 
 }

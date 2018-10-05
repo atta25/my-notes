@@ -1,31 +1,31 @@
 package ui.vm;
 
-import model.Course;
 import model.Student;
 import org.uqbar.commons.model.annotations.Observable;
-import repo.RepositoryCourse;
-import java.util.Optional;
+import service.StudentService;
+import utils.JsonUtils;
 
 @Observable
 public class HomeViewModel {
-    Course course;
-    private String file = "";
+    private String token;
 
     public HomeViewModel() {
         super();
-        course = RepositoryCourse.getInstance().getCourse();
     }
 
-    public String getFile() {
-        return this.file;
+    public String getToken() {
+        return this.token;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public Optional<Student> getStudent() {
-        return RepositoryCourse.getInstance().getStudent(this.file);
+    public Student getStudent() {
+        String json = new StudentService().getStudentData(token).getEntity(String.class);
+        Student student = new JsonUtils().getObject(json, Student.class);
+        student.setToken(token);
+        return student;
     }
 
 }

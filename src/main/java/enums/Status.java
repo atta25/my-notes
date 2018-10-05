@@ -1,8 +1,8 @@
 package enums;
 
 public enum Status {
-    APROBO("Aprobado"),
-    NO_APROBO("No aprobado");
+    APROBADO("Aprobado"),
+    DESAPROBADO("Desaprobado");
 
     private final String description;
 

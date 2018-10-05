@@ -1,7 +1,6 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class Student {
@@ -13,8 +12,8 @@ public class Student {
     private String lastName;
     @JsonProperty("github_user")
     private String userGitHub;
-    @JsonProperty("assignments")
     private List<Assignment> assignments;
+    private String token;
 
     public Student() {}
 
@@ -56,6 +55,14 @@ public class Student {
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }

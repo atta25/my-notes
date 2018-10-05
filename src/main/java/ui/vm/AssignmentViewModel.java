@@ -2,18 +2,23 @@ package ui.vm;
 
 import model.Assignment;
 import model.CurrentNote;
+import model.Student;
 import org.uqbar.commons.model.annotations.Observable;
-import transformer.NotesTransformer;
+import service.StudentService;
+import transformer.NoteTransformer;
+import utils.JsonUtils;
 import java.util.List;
 
 @Observable
 public class AssignmentViewModel {
-    private NotesTransformer notesTransformer;
+    private NoteTransformer noteTransformer;
     private List<CurrentNote> currentNotes;
 
-    public AssignmentViewModel(List<Assignment> assignments) {
-        this.notesTransformer = new NotesTransformer();
-        this.currentNotes = this.transformNotes(assignments);
+    public AssignmentViewModel(String token) {
+        String json = new StudentService().getAssignmentsData(token).getEntity(String.class);
+        List<Assignment> assignments = new JsonUtils().getObject(json, Student.class).getAssignments();
+        noteTransformer = new NoteTransformer();
+        this.currentNotes = noteTransformer.transform(assignments);
     }
 
     public List<CurrentNote> getCurrentNotes() {
@@ -22,10 +27,6 @@ public class AssignmentViewModel {
 
     public void setCurrentNotes(List<CurrentNote> currentNotes) {
         this.currentNotes = currentNotes;
-    }
-
-    public List<CurrentNote> transformNotes(List<Assignment> assignments) {
-        return notesTransformer.transform(assignments);
     }
 
 }

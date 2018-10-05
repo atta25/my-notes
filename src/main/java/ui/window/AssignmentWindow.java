@@ -16,7 +16,7 @@ public class AssignmentWindow extends SimpleWindow<AssignmentViewModel> {
     }
 
     @Override
-    protected void addActions(Panel panel) { }
+    protected void addActions(Panel panel) {}
 
     @Override
     protected void createFormPanel(Panel panel) {
@@ -24,13 +24,21 @@ public class AssignmentWindow extends SimpleWindow<AssignmentViewModel> {
         Table tableNotes = new Table<>(panel, CurrentNote.class);
         tableNotes.bindItemsToProperty("currentNotes");
 
+        Column<CurrentNote> columnId = new Column<CurrentNote>(tableNotes);
+        columnId.setTitle("Id");
+        columnId.bindContentsToProperty("id");
+
+        Column<CurrentNote> columnTitle = new Column<CurrentNote>(tableNotes);
+        columnTitle.setTitle("Título");
+        columnTitle.bindContentsToProperty("title");
+
         Column<CurrentNote> columnDescription = new Column<CurrentNote>(tableNotes);
         columnDescription.setTitle("Descripción");
         columnDescription.bindContentsToProperty("description");
 
-        Column<CurrentNote> columnNotes = new Column<CurrentNote>(tableNotes);
-        columnNotes.setTitle("Nota actual");
-        columnNotes.bindContentsToProperty("lastNote");
+        Column<CurrentNote> columnNote = new Column<CurrentNote>(tableNotes);
+        columnNote.setTitle("Nota actual");
+        columnNote.bindContentsToProperty("lastNote");
 
         Column<CurrentNote> columnStatus = new Column<CurrentNote>(tableNotes);
         columnStatus.setTitle("Estado");
@@ -38,7 +46,7 @@ public class AssignmentWindow extends SimpleWindow<AssignmentViewModel> {
 
         new Button(panel)
                 .setCaption("Cerrar")
-                .onClick(this::close).setWidth(500);
+                .onClick(this::close).setWidth(750);
     }
 
 }

@@ -1,9 +1,15 @@
 package utils;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtils {
     private ObjectMapper mapper;
+
+    public JsonUtils() {
+        this.mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
     public String getJson(Object object) {
         String jsonString;
